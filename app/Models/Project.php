@@ -67,8 +67,8 @@ class Project extends \NeoEloquent
         return $this->belongsToMany("App\Models\Comment","HAS_COMMENT");
     }
 
-    public function suggestions(){
-        return $this->hasMany("App\Models\Suggestion","HAS_SUGGESTION");
+    public function suggestion(){
+        return $this->hasOne("App\Models\Suggestion","HAS_SUGGESTION");
     }
 
     public function current_file(){

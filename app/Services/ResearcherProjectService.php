@@ -90,7 +90,8 @@ class ResearcherProjectService extends ProjectService
         $project = Project::find($id);
         if($project){
             /* @var Project $project*/
-            if($project->status('Draft')){
+            //return $project->status;
+            if($project->status->key =='draft'){
                 $this->linkToFacultyStatus($project,$input);
             }else{
                 return \Response::json([

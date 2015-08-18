@@ -42,7 +42,7 @@ class FacultyProjectService extends ResearcherProjectService
     }
 
     public function get($id){
-        $project = Project::with(['createdBy', 'faculty','status'])->find($id);
+        $project = Project::with(['createdBy', 'faculty','status','suggestion'])->find($id);
         return $project;
     }
 
@@ -50,8 +50,10 @@ class FacultyProjectService extends ResearcherProjectService
     {
         $project = Project::find($id);
         if ($project) {
-            if($project->status('Draft')){
+            /* @var Project $project*/
+            if($project->status->key =='faculty'){
                 $this->linkToUniversityStatus($project, $input);
+                //ใส่suggesion
             }else{
                 return \Response::json([
                     "error" => "There is something wrong, Please contact administrator."
@@ -73,8 +75,10 @@ class FacultyProjectService extends ResearcherProjectService
     {
         $project = Project::find($id);
         if ($project) {
-            if($project->status('Draft')){
+            /* @var Project $project*/
+            if($project->status->key == 'faculty'){
                 $this->linkToDraftStatus($project, $input);
+                //ใส่suggesion
             }else{
                 return \Response::json([
                     "error" => "There is something wrong, Please contact administrator."

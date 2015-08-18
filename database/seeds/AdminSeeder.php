@@ -16,8 +16,8 @@ class AdminSeeder extends Seeder {
 	{
 
         $user = new \App\Models\User();
-        $user->email="tiw_t1@hotmail.com";
-        $user->password =  \Hash::make("019474887");
+        $user->email="admin@success.local";
+        $user->password =  \Hash::make("1234");
         $user->save();
 
         $role = \App\Models\Role::where("key","=","admin")->first();

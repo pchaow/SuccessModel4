@@ -42,7 +42,8 @@ class UniversityProjectService extends ResearcherProjectService
     public function submitProject($id,array $input){
         $project = Project::find($id);
         if($project){
-            if($project->status('Draft')){
+            /* @var Project $project*/
+            if($project->status->key =='university'){
                 $this->linkToPublish($project,$input);
             }else{
                 return \Response::json([
@@ -64,7 +65,8 @@ class UniversityProjectService extends ResearcherProjectService
     public function rejectProject($id,array $input){
         $project = Project::find($id);
         if ($project) {
-            if($project->status('Draft')){
+            /* @var Project $project*/
+            if($project->status->key == 'university'){
                 $this->linkToFacultyStatus($project, $input);
             }else{
                 return \Response::json([

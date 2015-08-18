@@ -21,17 +21,9 @@ use \Auth;
  */
 class SuggestionProjectService extends ProjectService
 {
-    public  function  getSuggestionFromProject($id){
-
-        $project = Project::find($id);
-        if($project){
-            $Suggestion = Suggestion::with($this->withArr)->get();
-
-            return $Suggestion;
-            }
-        }
-
+    
     public function addSuggestionToProject($id,array $input){
+        //มีการตรวจสอบก่อนว่ามีคำแนะนำรึเปล่า
         $project = $this->get($id);
         $suggestion = new Suggestion();
         $suggestion->fill($input);

@@ -103,7 +103,7 @@ app.controller("HomeCtrl", function ($scope,projects,$state,ProjectService) {
     $scope.ajaxDelete = function (project, bool) {
         $scope.project = project;
         if (bool) {
-            ProjectService.delete(project).success(function (response) {
+            ProjectService.delete($scope.project.id).success(function (response) {
                 $scope.closeDeleteModal();
                 ProjectService.all().success(function (response) {
                     $scope.projects = response;

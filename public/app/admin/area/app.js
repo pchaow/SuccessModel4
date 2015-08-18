@@ -16,9 +16,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             resolve: {
                 areas: function (AreaService) {
                     return AreaService.index();
-                },
-                delete : function (AreaService){
-                    return AreaService.delete();
                 }
             }
         })
