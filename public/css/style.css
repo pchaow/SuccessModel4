@@ -1,0 +1,23 @@
+.avatar-menu {
+    height: 2em !important;
+    width: 2em !important;
+    margin-top: -0.5em;
+    margin-bottom: -0.5em;
+}
+
+.ui.inverted.purple.segment {
+    background-color: #4c1d6e !important;
+}
+
+.ui.divider.condensed {
+    margin-top : 7px;
+    margin-bottom : 7px;
+}
+
+h3.condensed {
+    margin-bottom : 4px;
+}
+
+.row.preview {
+    margin-bottom: 2em;
+}

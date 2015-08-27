@@ -1,0 +1,27 @@
+<h2><i ui-sref="home" class="arrow  left icon"/>Edit Faculty</h2>
+
+<div class="ui secondary pointing menu">
+    <a class="active item" data-tab="information">Faculty Information</a>
+    <a class="item" data-tab="officers">Faculty Officer</a>
+    <a class="item" data-tab="photos">Photos</a>
+</div>
+
+<div class="ui active tab " data-tab="information">
+    <div class="" ng-include="'/app/admin/faculty/_edit_form.html'">
+    </div>
+
+</div>
+
+<div class="ui tab " data-tab="officers">
+    <div  ng-include="'/app/admin/faculty/_edit_user.html'">
+
+
+    </div>
+</div>
+
+<div class="ui tab " data-tab="photos">
+    <div  ng-include="'/app/admin/faculty/_edit_photo.html'">
+</div>
+</div>
+
+

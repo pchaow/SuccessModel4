@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('researcher.layout')
 @section('header')
     <link rel="stylesheet" href="/packages/angular-chart.js/dist/angular-chart.css">
 @stop

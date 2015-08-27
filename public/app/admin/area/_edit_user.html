@@ -1,0 +1,61 @@
+<div class="ui grid">
+    <div class="ten wide column">
+        <div class="ui form">
+            <div class="ui left icon input">
+                <input ng-change="searchUser(keyword)" ng-model="keyword" type="text" placeholder="Search users...">
+                <i class="users icon"></i>
+            </div>
+
+            <div class="ui divided list">
+                <div class="item" ng-repeat="user in users">
+
+                    <div ng-if="user.faculty == null && !checkUser(user)" class="right floated compact ui button" ng-click="addUser(user)">Add</div>
+                    <div ng-if="user.faculty == null && checkUser(user)" class="right floated negative compact ui button" ng-click="removeUser(user)">Remove</div>
+                    <div ng-if="user.faculty && checkUser(user)" class="right floated negative compact ui button" ng-click="removeUser(user)">Remove</div>
+                    <div ng-if="user.faculty && !checkUser(user)" class="right floated negative compact ui button">{{user.faculty.name_th}}</div>
+
+                    <img ng-if="!user.logo" class="ui top aligned avatar image" src="/images/daniel.jpg">
+                    <img ng-if="user.logo" class="ui top aligned avatar image" ng-src="{{user.logo.url}}?w=35">
+
+                    <div class="content">
+                        <div class="header">{{user.firstname}} {{user.lastname}}</div>
+                        {{user.email}}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="six wide column">
+
+        <div class="ui fluid card">
+            <div class="content">
+                <div class="header">Member</div>
+                <div class="meta">{{facultyUsers.length}} members</div>
+                <div class="description">
+                    <p>
+
+                    <div class="ui list">
+                        <div class="item" ng-repeat="user in facultyUsers">
+                            <div class="right floated negative compact ui button" ng-click="removeUser(user)">Remove</div>
+                            <img ng-if="!user.logo" class="ui top aligned avatar image" src="/images/daniel.jpg">
+                            <img ng-if="user.logo" class="ui top aligned avatar image" ng-src="{{user.logo.url}}?w=35">
+
+                            <div class="content">
+                                <div class="header">{{user.firstname}} {{user.lastname}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="extra content">
+                    <a>
+                        <i class="plus icon"></i>
+                        Show More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

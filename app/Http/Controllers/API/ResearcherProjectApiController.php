@@ -28,15 +28,19 @@ class ResearcherProjectApiController extends Controller {
         return $this->researcherProjectService->getProjects();
     }
 
-    public function submitProject($id){
+    public function submit($id){
         return $this->researcherProjectService->submitProject($id,Input::all());
     }
 
     public function delete($id){
         return $this->researcherProjectService->delete($id);
     }
+    public function get($id){
+        return $this->researcherProjectService->get($id);
+    }
 
     public function update($id){
+        return $this->researcherProjectService->update(Input::all());
 
     }
 }

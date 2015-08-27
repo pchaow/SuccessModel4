@@ -108,7 +108,7 @@ app.controller("EditCtrl", function ($scope, $state, faculty, users, facultyUser
         testChunks: false,
         headers: function (file, chunk, isTest) {
             return {
-                'X-XSRF-TOKEN': $cookies['XSRF-TOKEN']// call func for getting a cookie
+                'X-XSRF-TOKEN': $cookies.get('XSRF-TOKEN')// call func for getting a cookie
             }
         }
     })

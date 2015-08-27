@@ -8,12 +8,29 @@ namespace App\Models;
  * Time: 12:59 PM
  */
 
+//use Elasticquent\ElasticquentTrait;
 use Vinelab\NeoEloquent\Eloquent\SoftDeletes;
 
 class Project extends \NeoEloquent
 {
 
     use SoftDeletes;
+    //use ElasticquentTrait;
+
+    protected $mappingProperties = [
+        'name' => [
+            'type' => 'string',
+            'analyzer' => 'thai'
+        ],
+        'abstract' => [
+            'type' => 'string',
+            'analyzer' => 'thai'
+        ],
+        'content' => [
+            'type' => 'string',
+            'analyzer' => 'thai'
+        ]
+    ];
 
     protected $label = ['Project'];
 
@@ -45,6 +62,29 @@ class Project extends \NeoEloquent
 
     public function createdBy(){
         return $this->belongsTo("App\Models\User","CREATE");
+    }
+    public function comments(){
+        return $this->belongsToMany("App\Models\Comment","HAS_COMMENT");
+    }
+
+    public function suggestion(){
+        return $this->hasOne("App\Models\Suggestion","HAS_SUGGESTION");
+    }
+
+    public function current_file(){
+        return $this->hasOne('App\Models\File',"CURRENT_FILE");
+    }
+
+    public function files(){
+        return $this->hasMany("App\Models\File","FILE");
+    }
+
+    public function videos(){
+        return $this->hasMany("App\Models\Video","VIDEO");
+    }
+
+    public function youtubes(){
+        return $this->hasMany("App\Models\Youtube","VIDEO");
     }
 
 }

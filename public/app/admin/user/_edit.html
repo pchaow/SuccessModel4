@@ -12,52 +12,70 @@
     <h4 class="ui dividing header">User Information</h4>
 
     <div class="three fields">
-    <div class="field">
-        <label>Title</label>
-        <input ng-model="user.title" type="text" name="title" placeholder="User Title" required="required">
-    </div>
+        <div class="field">
+            <label>Title</label>
+            <input ng-model="user.title" type="text" name="title" placeholder="User Title" required="required">
+        </div>
 
-    <div class="field">
-        <label>First Name</label>
-        <input ng-model="user.firstname" type="text" name="firstname" placeholder="User First Name" required="required">
-    </div>
+        <div class="field">
+            <label>First Name</label>
+            <input ng-model="user.firstname" type="text" name="firstname" placeholder="User First Name"
+                   required="required">
+        </div>
 
-    <div class="field">
-        <label>Last Name</label>
-        <input ng-model="user.lastname" type="text" name="lastname" placeholder="User Last Name" required="required">
-    </div>
+        <div class="field">
+            <label>Last Name</label>
+            <input ng-model="user.lastname" type="text" name="lastname" placeholder="User Last Name"
+                   required="required">
+        </div>
     </div>
     <div class="three fields">
-    <div class="field">
-        <label>E-mail</label>
-        <input ng-model="user.email" type="text" name="email" placeholder="User E-mail" required="required">
+        <div class="field">
+            <label>E-mail (read-only)</label>
+            <input readonly="readonly" ng-model="user.email" type="text" name="email" placeholder="User E-mail"
+                   required="required">
+        </div>
+
+        <div class="field">
+            <label>Password</label>
+            <input ng-model="user.password" type="password" name="password" placeholder="User Password">
+        </div>
+
+        <div class="field">
+            <label>Verify Password</label>
+            <input ng-model="user.vpassword" type="password" name="vpassword" placeholder="Verify Password">
+        </div>
     </div>
 
     <div class="field">
-        <label>Password</label>
-        <input ng-model="user.password" type="password" name="password" placeholder="User Password">
-    </div>
+        <label>Faculty</label>
 
-    <div class="field">
-        <label>Verify Password</label>
-        <input ng-model="user.vpassword" type="password" name="vpassword" placeholder="Verify Password">
-    </div>
-    </div>
-    <div class="field">
-        <label>Roles</label>
-
-        <div class="ui floating dropdown upward labeled icon button">
+        <div id="faculty_dropdown" class="ui floating fluid search selection dropdown upward labeled icon button">
             <i class="world icon"></i>
-            <span class="text">Select Roles</span>
+            <span ng-if="!user.faculty" class="text">Select Faculty</span>
+            <span ng-if="user.faculty" class="text">{{user.faculty.name_th}}</span>
 
             <div class="menu">
-                <div class="item" ng-repeat="role in roles" ng-click="addRole(role)">{{role.name}}</div>
+                <div class="item" ng-repeat="faculty in faculties" ng-click="user.faculty = faculty">{{faculty.name_th}}</div>
             </div>
         </div>
 
-        <div class="ui label" ng-repeat="role in user.roles">
-            {{role.name}}
-            <i class="delete icon" ng-click="removeRole(role)"></i>
+    </div>
+
+    <div class="field">
+        <label>Roles</label>
+
+        <div id="roles_dropdown" class="ui fluid multiple search selection dropdown">
+            <input type="hidden" name="role">
+            <i class="dropdown icon"></i>
+
+            <a ng-repeat="role in user.roles | orderBy : role.id" class="ui label transition visible" data-value="{{role.id}}" style="display: inline-block !important;">{{role.name}}<i class="delete icon"></i></a>
+
+            <div class="default text">เลือกบทบาทหน้าที่</div>
+            <div class="menu">
+                <div ng-class="{filtered : hasRole(role)}" class="item" data-value="{{role.id}}" ng-repeat="role in roles | orderBy : role.id">{{role.name}}</div>
+            </div>
+
         </div>
 
     </div>

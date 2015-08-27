@@ -1,16 +1,18 @@
-<div class="ui grid">
+<div class="ui grid" ng-controller="ProjectMemberCtrl as pmc">
     <div class="ten wide column">
         <div class="ui form">
             <div class="ui left icon input">
-                <input ng-change="member.searchUser(this.keyword)" ng-model="keyword" type="text" placeholder="Search users...">
+                <input ng-change="pmc.member.searchUser(this.keyword)" ng-model="keyword" type="text" placeholder="Search users...">
                 <i class="users icon"></i>
             </div>
 
             <div class="ui divided list">
-                <div class="item" ng-repeat="user in member.users">
-                    <div ng-if="!checkUser(user)" class="right floated compact ui button" ng-click="member.addMember(user)">Add</div>
-                    <div ng-if="checkUser(user)" class="right floated negative compact ui button" ng-click="member.removeMember(user)">Remove</div>
-                    <img class="ui avatar image" src="/images/square-image.png">
+                <div class="item" ng-repeat="user in pmc.member.users">
+                    <div ng-if="!pmc.checkUser(user)" class="right floated compact ui button" ng-click="pmc.member.addMember(user)">Add</div>
+                    <div ng-if="pmc.checkUser(user)" class="right floated negative compact ui button" ng-click="pmc.member.removeMember(user)">Remove</div>
+
+                    <img ng-if="!user.logo" class="ui avatar image" src="/images/square-image.png">
+                    <img ng-if="user.logo" class="ui avatar image" ng-src="{{user.logo.url}}">
 
                     <div class="content">
                         <div class="header">{{user.firstname}} {{user.lastname}}</div>
@@ -27,14 +29,16 @@
         <div class="ui fluid card">
             <div class="content">
                 <div class="header">Member</div>
-                <div class="meta">{{projectMembers.length}} members</div>
+                <div class="meta">{{pmc.projectMembers.length}} members</div>
                 <div class="description">
                     <p>
 
                     <div class="ui list">
-                        <div class="item" ng-repeat="user in projectMembers">
-                            <div class="right floated negative compact ui button" ng-click="member.removeMember(user)">Remove</div>
-                            <img class="ui top aligned avatar image" src="/images/daniel.jpg">
+                        <div class="item" ng-repeat="user in pmc.projectMembers">
+                            <div class="right floated negative compact ui button" ng-click="pmc.member.removeMember(user)">Remove</div>
+
+                            <img ng-if="!user.logo" class="ui avatar image" src="/images/square-image.png">
+                            <img ng-if="user.logo" class="ui avatar image" ng-src="{{user.logo.url}}">
 
                             <div class="content">
                                 <div class="header">{{user.firstname}} {{user.lastname}}</div>

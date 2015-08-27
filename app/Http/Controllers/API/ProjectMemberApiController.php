@@ -25,7 +25,7 @@ class ProjectMemberApiController extends Controller {
 	{
         /* @var Project $project */
         $project = $this->projectService->get($projectId);
-        $users = $project->members;
+        $users = $project->members()->with('logo')->get();
 
         return $users;
 	}

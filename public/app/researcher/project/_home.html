@@ -16,26 +16,38 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="project in faculties">
+    <tr ng-repeat="project in projects">
         <td class="center aligned collapsing" ng-bind="project.id"></td>
         <td ng-bind="project.name"></td>
         <td ng-bind="project.faculty.name_th"></td>
         <td ng-bind="project.created_by.email"></td>
         <td>{{project.status.name}}</td>
         <td class="center aligned collapsing">
-            <div class="ui buttons">
-                <button ui-sref="edit({id:project.id})" class="ui positive button">Edit</button>
-                <button ng-click="showDeleteModal(project)" class="ui negative button">Delete</button>
+            <div class="ui buttons" ng-if="project.status.key == 'draft' ">
+                    <div class="ui buttons">
+                        <button ng-click="showAcceptModal(project)" class="ui icon olive button" data-content="Accept">
+                            <i class="check square icon"></i>
+                        </button>
+                        <button class="ui icon button" ui-sref="edit({id:project.id})" data-content="Edit">
+                            <i class="edit icon"></i>
+                        </button>
+                        <button ng-click="showDeleteModal(project)" class="ui icon negative button" data-content="Delete">
+                            <i class="delete icon"></i>
+                        </button>
+                    </div>
+
             </div>
         </td>
     </tr>
     </tbody>
 </table>
+</modal>
+
 
 <modal ng-model="delete_modal">
     <i ng-click="closeDeleteModal()" class="close icon"></i>
     <div class="header">
-        Delete Project
+        Delete User
     </div>
     <div class="content">
         <div class="ui medium image">
@@ -44,14 +56,38 @@
         <div class="description">
             <div class="ui header">Do you want to delete this project?</div>
             <p>Project ID : <span ng-bind="project.id"></span></p>
-            <p ng-bind="project.name_th"></p>
+
+            <p ng-bind="project.name"></p>
         </div>
     </div>
     <div class="actions">
-        <div class="ui black button" ng-click="ajaxDelete(null,false)">
+        <div class="ui black button" ng-click="ajaxDelete(null,false)" >
             No
         </div>
         <div class="ui positive right labeled icon button" ng-click="ajaxDelete(project,true)">
+            Yes
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</modal>
+
+
+<modal ng-model="accept_modal">
+    <i ng-click="closeAcceptModal()" class="close icon"></i>
+
+    <div class="header">
+        Comment Project
+    </div>
+    <form class="ui reply form">
+        <div class="field">
+            <textarea ng-model="project.suggestion" required="required" placeholder="คำแนะนำ.........."></textarea>
+        </div>
+    </form>
+    <div class="actions">
+        <div class="ui black button" ng-click="ajaxAccept(null,false)">
+            No
+        </div>
+        <div class="ui positive right labeled icon button" ng-click="ajaxAccept(project,true)">
             Yes
             <i class="checkmark icon"></i>
         </div>

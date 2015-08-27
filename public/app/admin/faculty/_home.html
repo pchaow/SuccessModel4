@@ -9,7 +9,7 @@
     <tr>
         <th class="center aligned one wide">ID</th>
         <th class="center aligned wide">Name(TH)</th>
-        <th class="center aligned four wide">Action</th>
+        <th class="center aligned two wide">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -18,8 +18,12 @@
         <td ng-bind="faculty.name_th"></td>
         <td class="center aligned collapsing">
             <div class="ui buttons">
-                <button ui-sref="edit({id:faculty.id})" class="ui positive button">Edit</button>
-                <button ng-click="showDeleteModal(faculty)" class="ui negative button">Delete</button>
+                <button class="ui icon button" ui-sref="edit({id:faculty.id})">
+                    <i class="edit icon"></i>
+                </button>
+                <button ng-click="showDeleteModal(faculty)" class="ui icon negative button">
+                    <i class="delete icon"></i>
+                </button>
             </div>
         </td>
     </tr>

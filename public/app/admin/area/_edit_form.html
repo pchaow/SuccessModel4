@@ -1,0 +1,60 @@
+<form class="ui form" ng-submit="save()">
+
+    <div class="field">
+        <label>Name (TH)</label>
+        <input ng-model="faculty.name_th" type="text" name="name" placeholder="Faculty Name" required="required">
+    </div>
+
+    <div class="field" flow-init flow-object="myFlow"
+         flow-file-success="$file.msg = $message"
+         flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+         flow-file-success="flowSuccess($file,$message)">
+
+        <label>Logo</label>
+
+
+        <div flow-drop class="ui bordered medium" ng-style="style" flow-drag-enter="style={border:'4px solid green'}" flow-drag-leave="style={border: '1px dotted'}">
+
+            Drag and Drop Image to change<br/>
+
+            <div ng-if="$flow.files.length==0 && !faculty.logo" class="ui bordered  medium image">
+                <img src="/images/square-image.png"/>
+            </div>
+
+
+            <div ng-if="$flow.files.length==0 && faculty.logo" class="ui bordered  medium image">
+                <img ng-src="{{faculty.logo.url}}?h=200"/>
+            </div>
+
+            <div ng-repeat="file in myFlow.files">
+                <div class="ui medium bordered image">
+                    <a ng-if="file.isComplete()" href="#" class="ui label left corner">
+                        <i class="checkmark green icon"></i>
+                    </a>
+                    <img flow-img="file"/>
+
+                    <div class="ui bottom attached progress" ng-if="file.isUploading()">
+                        <div class="bar" data-percent="{{file.progress() * 100}}"></div>
+                    </div>
+                </div>
+
+                <br/>
+
+                <button ng-if="!file.isComplete()" ng-click="uploadFile()" type="button"
+                        class="ui positive submit button">
+                    Apply Image
+                </button>
+
+                <button ng-if="!file.isComplete()" ng-click="cancelFile(file)" type="button"
+                        class="ui default submit button">
+                    Remove
+                </button>
+
+            </div>
+
+
+        </div>
+    </div>
+    <button type="submit" class="ui primary submit button">Save & Close</button>
+    <button type="button" ui-sref="home" class="ui submit button">Close</button>
+</form>

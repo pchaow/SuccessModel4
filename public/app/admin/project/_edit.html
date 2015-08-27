@@ -1,11 +1,23 @@
-<h2><i ui-sref="home" class="arrow  left icon"></i> Edit Project</h2>
+<div class="ui two columns grid">
+
+    <div class="two column row">
+        <div class="left aligned  column">
+
+            <h2><i ui-sref="home" class="arrow  left icon"></i> Edit Project</h2>
+        </div>
+    </div>
+</div>
 
 <div class="ui secondary pointing menu">
     <a class="active item" data-tab="information">Project Information</a>
     <a class="item" data-tab="detail">Project Detail</a>
-    <a class="item" data-tab="member">Research Member</a>
-    <a class="item" data-tab="photos">Photos</a>
+    <a class="item" data-tab="file">Project Publish File</a>
+    <a class="item" data-tab="member" ng-click="initProjectMemberCtrl()">Research Member</a>
+    <a class="item" data-tab="photos" ng-click="initProjectPhotoController()">Photos</a>
+    <a class="item" data-tab="youtubes" ng-click="initProjectYoutubeController()()">Youtube</a>
+    <a class="item" ui-sref="view({id:project.id})">Preview</a>
 </div>
+
 
 <div class="ui active tab" data-tab="information">
     <div class="" ng-include="'/app/admin/project/_edit_form.html'">
@@ -17,6 +29,11 @@
     </div>
 </div>
 
+<div class="ui tab" data-tab="file">
+    <div class="" ng-include="'/app/admin/project/_edit_file.html'">
+    </div>
+</div>
+
 <div class="ui tab" data-tab="member">
     <div class="" ng-include="'/app/admin/project/_edit_user.html'">
     </div>
@@ -24,5 +41,10 @@
 
 <div class="ui tab" data-tab="photos">
     <div class="" ng-include="'/app/admin/project/_edit_photo.html'">
+    </div>
+</div>
+
+<div class="ui tab" data-tab="youtubes">
+    <div class="" ng-include="'/app/admin/project/_edit_youtube.html'">
     </div>
 </div>

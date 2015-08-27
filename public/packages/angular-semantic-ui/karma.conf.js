@@ -3,9 +3,9 @@ basePath = '.';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'packages/jquery/dist/jquery.min.js',
-  'packages/angular/angular.min.js',
-  'packages/angular-mocks/angular-mocks.js',
+  'bower_components/jquery/dist/jquery.min.js',
+  'bower_components/angular/angular.min.js',
+  'bower_components/angular-mocks/angular-mocks.js',
   'src/**/*.js',
 ];
 

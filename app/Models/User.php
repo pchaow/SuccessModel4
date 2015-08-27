@@ -90,4 +90,15 @@ class User extends \NeoEloquent implements  AuthenticatableContract, CanResetPas
     public function createProject(){
         return $this->hasMany("App\Models\Project","CREATE");
     }
+
+
+    public function isAdmin(){
+        $roles = $this->roles;
+        foreach($roles as $role){
+            if($role->key == 'admin'){
+                return true;
+            }
+        }
+        return false;
+    }
 }

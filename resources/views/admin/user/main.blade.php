@@ -19,5 +19,6 @@
 @section('javascript')
     <script type="text/javascript" src="/app/admin/UserService.js"></script>
     <script type="text/javascript" src="/app/admin/RoleService.js"></script>
+    <script type="text/javascript" src="/app/admin/FacultyService.js"></script>
     <script type="text/javascript" src="/app/admin/user/app.js"></script>
 @stop

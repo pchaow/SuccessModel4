@@ -23,8 +23,8 @@ class ProjectImageApiController extends Controller {
 	public function index($projectId)
 	{
         /* @var Project $project */
-        $project = $this->projectService->get($projectId);
-        $images = $project->images;
+
+        $images = $this->projectService->getProjectImages($projectId);
 
         return $images;
 	}

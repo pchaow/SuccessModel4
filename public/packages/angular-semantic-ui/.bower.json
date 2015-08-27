@@ -1,7 +1,7 @@
 {
   "name": "angular-semantic-ui",
   "description": "Angular - AngularJS directives for Semantic UI.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "angular",
     "ui"
@@ -37,14 +37,13 @@
     "semantic": "latest"
   },
   "devDependencies": {},
-  "_release": "0.0.2",
+  "_release": "0.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.2",
-    "commit": "6c1f67e575ac202949d1c8f090a5d77aee8a4ab5"
+    "tag": "0.0.3",
+    "commit": "c73ecc2a9da1eda2d394badc10d9b36e12f04a4e"
   },
   "_source": "git://github.com/angularify/angular-semantic-ui.git",
   "_target": "~0.0.2",
-  "_originalSource": "angular-semantic-ui",
-  "_direct": true
+  "_originalSource": "angular-semantic-ui"
 }

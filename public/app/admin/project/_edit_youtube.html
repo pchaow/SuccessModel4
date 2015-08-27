@@ -1,0 +1,39 @@
+<div class="" ng-controller="ProjectYoutubeController as pc">
+
+    <div class="ui fluid action input">
+        <input ng-model="pc.youtube.url" type="text" placeholder="Youtube URL">
+        <div ng-show="pc.youtube.url" class="ui positive button" ng-click="pc.addYoutube()"><i class="plus icon"></i>Add</div>
+    </div>
+
+    <div class="ui purple inverted top attached segment">
+        <h4>Project's Youtube</h4>
+    </div>
+
+    <div class="ui attached segment">
+
+        <div class="row">
+
+            <div class="ui items">
+                <div class="item" ng-repeat="youtube in pc.youtubes">
+                    <div class="image">
+                        <img ng-src="{{youtube.thumbnail_url}}">
+                    </div>
+                    <div class="content">
+                        <a class="header" target="_blank" href="{{youtube.url}}">{{youtube.title}}</a>
+
+                        <div class="description">
+                            {{youtube.description | limitTo: 300}}
+                        </div>
+                        <div class="extra">
+                            <div ng-click="pc.deleteYoutube(youtube)" class="ui right floated negative button">
+                                Delete
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

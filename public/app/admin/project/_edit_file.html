@@ -1,0 +1,91 @@
+<div class="" ng-controller="ProjectFileController as pc">
+
+    <div flow-init flow-object="pc.myFlow"
+         flow-file-success="pc.addFileToList($file, $message, $flow)"
+         flow-file-added="!!{doc:1,docx:1,pdf:1}[$file.getExtension()]"
+         flow-complete="$root.$broadcast('httpResponse', {})"
+         flow-upload-started="$root.$broadcast('httpRequest', {})"
+            >
+
+        <div class="ui purple inverted top attached segment">
+            <button flow-btn class="ui small button primary">Upload File</button>
+            <button ng-if="$flow.files.length>0" ng-click="pc.uploadFiles()" class="ui small button positive">Upload
+            </button>
+        </div>
+        <div class="ui attached segment" ng-if="$flow.files.length>0">
+
+            <div class="row">
+
+                <div class="ui feed">
+
+                    <div class="event" ng-repeat="file in $flow.files">
+                        <div class="label">
+                            <img src="/images/square-image.png">
+                        </div>
+                        <div class="content">
+                            {{file.name}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ui purple inverted top attached segment">
+            <h4>Current Published Files</h4>
+        </div>
+
+        <div class="ui attached segment">
+
+            <div class="row">
+
+                <div class="ui feed">
+
+                    <div class="event" ng-show="pc.file">
+                        <div class="label" ng-switch="file.origin_ext">
+                            <i ng-switch-when="doc" class="file world outline icon"></i>
+                            <i ng-switch-when="docx" class="file word outline icon"></i>
+                            <i ng-switch-when="pdf" class="file pdf outline icon"></i>
+                            <i ng-switch-default="default" class="file text outline icon"></i>
+                        </div>
+                        <div class="content">
+                            <a href="/downloads/{{file.origin_name}}{{file.url}}">{{file.origin_name}}</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ui purple inverted top attached segment">
+            <h4>Previous Published Files</h4>
+        </div>
+
+        <div class="ui attached segment">
+
+            <div class="row">
+
+                <div class="ui feed">
+
+                    <div class="event" ng-repeat="file in pc.previousFiles">
+                        <div class="label" ng-switch="file.origin_ext">
+                            <i ng-switch-when="doc" class="file world outline icon"></i>
+                            <i ng-switch-when="docx" class="file word outline icon"></i>
+                            <i ng-switch-when="pdf" class="file pdf outline icon"></i>
+                            <i ng-switch-default="default" class="file text outline icon"></i>
+                        </div>
+                        <div class="content">
+                            <a href="/downloads/{{file.origin_name}}{{file.url}}">{{file.origin_name}}</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

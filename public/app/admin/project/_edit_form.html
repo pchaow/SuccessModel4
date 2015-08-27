@@ -7,39 +7,42 @@
 
     <div class="field">
         <label>Project Abstract</label>
-        <textarea rows="5" ng-model="project.abstract" required="required"></textarea>
+        <textarea rows="10" ng-model="project.abstract" required="required"></textarea>
     </div>
 
-    <div class="field">
-        <label>Status</label>
+    <div class="two fields">
+        <div class="field">
+            <label>Status</label>
 
+            <div class="ui fluid dropdown upward labeled icon button">
+                <i class="world icon"></i>
+                <span ng-if="!project.status" class="text">Select Status</span>
+                <span ng-if="project.status" class="text">{{project.status.name}}</span>
 
-
-        <div class="ui floating dropdown upward labeled icon button">
-            <i class="world icon"></i>
-            <span ng-if="!project.status" class="text">Select Status</span>
-            <span ng-if="project.status" class="text">{{project.status.name}}</span>
-
-            <div class="menu">
-                <div class="item" ng-repeat="status in statuses" ng-click="updateStatus(status)">{{status.name}}</div>
+                <div class="menu">
+                    <div class="item" ng-repeat="status in statuses" ng-click="updateStatus(status)">{{status.name}}
+                    </div>
+                </div>
             </div>
+
         </div>
 
-    </div>
+        <div class="field">
+            <label>Faculty</label>
 
-    <div class="field">
-        <label>Faculty</label>
+            <div class="ui fluid selection upward dropdown">
+                <i class="dropdown icon"></i>
+                <span ng-if="!project.faculty" class="text">Select Faculty</span>
+                <span ng-if="project.faculty" class="text">{{project.faculty.name_th}}</span>
 
-        <div class="ui floating fluid search selection dropdown upward labeled icon button">
-            <i class="world icon"></i>
-            <span ng-if="!project.faculty" class="text">Select Faculty</span>
-            <span ng-if="project.faculty" class="text">{{project.faculty.name_th}}</span>
-
-            <div class="menu">
-                <div class="item" ng-repeat="faculty in faculties" ng-click="updateFaculty(faculty)">{{faculty.name_th}}</div>
+                <div class="menu">
+                    <div class="item" ng-repeat="faculty in faculties" ng-click="updateFaculty(faculty)">
+                        {{faculty.name_th}}
+                    </div>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <div class="field">

@@ -20,7 +20,7 @@ class WelcomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('guest');
+		//$this->middleware('guest');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class WelcomeController extends Controller {
 	public function index()
 	{
         if(\Auth::check()){
-            return redirect('/admin');
+            return view('auth.login');
         }else {
             return redirect('/auth/login');
         }

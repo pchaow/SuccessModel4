@@ -3,8 +3,10 @@
  */
 
 
-var app = angular.module('UserAdmin', ['ui.router','ngCookies',
-    'AppConfig','angularify.semantic', 'flow', 'User','Role']);
+var app = angular.module('UserAdmin', ['ui.router', 'ngCookies',
+    'AppConfig', 'angularify.semantic', 'flow',
+    'User', 'Role', 'Faculty'
+]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -27,10 +29,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: "AddCtrl",
             resolve: {
                 user: function (UserService) {
-                    return {data: { roles : []}}
+                    return {data: {roles: []}}
                 },
-                roles : function(RoleService){
+                roles: function (RoleService) {
                     return RoleService.all();
+                },
+                faculties: function (FacultyService) {
+                    return FacultyService.all();
                 }
             }
         })
@@ -44,12 +49,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 },
                 roles: function (RoleService) {
                     return RoleService.all();
+                },
+                faculties: function (FacultyService) {
+                    return FacultyService.all();
                 }
             }
         })
 });
 
-app.controller("HomeCtrl", function ($scope, $state, users, UserService) {
+app.controller("HomeCtrl", function ($scope, $state, users, UserService,$timeout) {
     console.log("HomeCtrl Start...");
 
     $scope.pagination = users.data;
@@ -82,11 +90,12 @@ app.controller("HomeCtrl", function ($scope, $state, users, UserService) {
     }
 });
 
-app.controller("AddCtrl", function ($scope, $state, user, UserService, roles) {
+app.controller("AddCtrl", function ($scope, $state, user, UserService, roles, faculties,$timeout) {
     console.log("AddCtrl Start...");
 
     $scope.user = user.data;
     $scope.roles = roles.data;
+    $scope.faculties = faculties.data;
 
     console.log($scope.roles);
 
@@ -100,52 +109,52 @@ app.controller("AddCtrl", function ($scope, $state, user, UserService, roles) {
         });
     }
 
-    $('.ui.dropdown').dropdown();
-
-    $scope.addRole = function(role){
-        found = false;
-        for(i=0;i<$scope.user.roles.length;i++){
-            if($scope.user.roles[i].id == role.id){
-                found = true;
-                break;
+    function onAddRole($label, value, text) {
+        for (var i = 0; i < $scope.roles.length; i++) {
+            if ($label == $scope.roles[i].id) {
+                $scope.user.roles.push($scope.roles[i]);
             }
         }
-        if (!found){
-            $scope.user.roles.push(role);
+    }
+
+    function onRemoveRole(removedValue, removedText, $removedChoice) {
+        for (var i = 0; i < $scope.user.roles.length; i++) {
+            if (removedValue == $scope.user.roles[i].id) {
+                $scope.user.roles.splice(i, 1);
+            }
         }
     }
 
-    $scope.removeRole = function(role){
-        $scope.user.roles.splice($scope.user.roles.indexOf(role),1);
+    $scope.hasRole = function (role) {
+
+        for (var i = 0; i < $scope.user.roles.length; i++) {
+            if (role.id == $scope.user.roles[i].id) {
+                return true;
+            }
+        }
+        return false;
     }
+
+
+    $timeout(function () {
+        $('#roles_dropdown').dropdown({
+            onAdd: onAddRole,
+            onRemove: onRemoveRole,
+            direction: 'upward'
+        });
+        $('#faculty_dropdown').dropdown({
+            direction: 'upward'
+        });
+    }, 100)
 
 });
 
-app.controller("EditCtrl", function ($scope, $state, user, UserService,roles,$cookieStore,$cookies) {
+app.controller("EditCtrl", function ($scope, $state, user, UserService, roles, faculties, $cookies, $timeout) {
     console.log("EditCtrl Start...");
-
-    var cookies = $cookies['XSRF-TOKEN'];
-
 
     $scope.user = user.data;
     $scope.roles = roles.data;
-
-    $scope.addRole = function(role){
-        found = false;
-        for(i=0;i<$scope.user.roles.length;i++){
-            if($scope.user.roles[i].id == role.id){
-                found = true;
-                break;
-            }
-        }
-        if (!found){
-            $scope.user.roles.push(role);
-        }
-    }
-
-    $scope.removeRole = function(role){
-        $scope.user.roles.splice($scope.user.roles.indexOf(role),1);
-    }
+    $scope.faculties = faculties.data;
 
     $scope.upload = {};
     $scope.upload.myFlow = new Flow({
@@ -155,7 +164,7 @@ app.controller("EditCtrl", function ($scope, $state, user, UserService,roles,$co
         testChunks: false,
         headers: function (file, chunk, isTest) {
             return {
-                'X-XSRF-TOKEN': cookies// call func for getting a cookie
+                'X-XSRF-TOKEN': $cookies.get('XSRF-TOKEN')// call func for getting a cookie
             }
         }
     })
@@ -180,5 +189,41 @@ app.controller("EditCtrl", function ($scope, $state, user, UserService,roles,$co
         });
     }
 
-    $('.ui.dropdown').dropdown();
+    function onAddRole($label, value, text) {
+        for (var i = 0; i < $scope.roles.length; i++) {
+            if ($label == $scope.roles[i].id) {
+                $scope.user.roles.push($scope.roles[i]);
+            }
+        }
+    }
+
+    function onRemoveRole(removedValue, removedText, $removedChoice) {
+        for (var i = 0; i < $scope.user.roles.length; i++) {
+            if (removedValue == $scope.user.roles[i].id) {
+                $scope.user.roles.splice(i, 1);
+            }
+        }
+    }
+
+    $scope.hasRole = function (role) {
+
+        for (var i = 0; i < $scope.user.roles.length; i++) {
+            if (role.id == $scope.user.roles[i].id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    $timeout(function () {
+        $('#roles_dropdown').dropdown({
+            onAdd: onAddRole,
+            onRemove: onRemoveRole,
+            direction: 'upward'
+        });
+        $('#faculty_dropdown').dropdown({
+            direction: 'upward'
+        });
+    }, 100)
 });

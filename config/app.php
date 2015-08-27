@@ -137,7 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
         'Vinelab\NeoEloquent\NeoEloquentServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-
+        'Artisaninweb\SoapWrapper\ServiceProvider',
         /*
          * Application Service Providers...
          */
@@ -194,6 +194,7 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+        'SoapWrapper' => 'Artisaninweb\SoapWrapper\Facades\SoapWrapper'
 
 	],
 

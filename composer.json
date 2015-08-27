@@ -1,50 +1,65 @@
 {
-	"name": "pchaow/SuccessModel4",
-	"description": "University of Phayao Success Model.",
-	"keywords": ["University","Phayao","Research","Database", "laravel"],
-	"license": "MIT",
-	"type": "project",
-	"require": {
-		"laravel/framework": "5.0.*",
-        "vinelab/neoeloquent": "1.2.*",
-		"barryvdh/laravel-ide-helper": "~2.0",
-		"league/glide": "0.3.*",
-		"spatie/laravel-glide": "~2.1",
-		"rhumsaa/uuid": "~2.8",
-        "mews/captcha": "dev-master"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1"
-	},
-	"autoload": {
-		"classmap": [
-			"database"
-		],
-		"psr-4": {
-			"App\\": "app/"
-		}
-	},
-	"autoload-dev": {
-		"classmap": [
-			"tests/TestCase.php"
-		]
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php -r \"copy('.env.example', '.env');\"",
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	}
+  "name": "pchaow/SuccessModel4",
+  "description": "University of Phayao Success Model.",
+  "keywords": [
+    "University",
+    "Phayao",
+    "Research",
+    "Database",
+    "laravel"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/sw-double/Elasticquent"
+    }
+  ],
+  "require": {
+    "laravel/framework": "5.0.*",
+    "vinelab/neoeloquent": "1.2.5",
+    "barryvdh/laravel-ide-helper": "~2.0",
+    "league/glide": "0.3.*",
+    "spatie/laravel-glide": "~2.1",
+    "mews/captcha": "dev-master",
+    "fairholm/elasticquent": "dev-master",
+    "sboo/multiauth" : "4.0.*",
+    "artisaninweb/laravel-soap": "0.2.5.10",
+    "ramsey/uuid": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "phpspec/phpspec": "~2.1"
+  },
+  "autoload": {
+    "classmap": [
+      "database"
+    ],
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php artisan clear-compiled",
+      "php artisan optimize"
+    ],
+    "post-update-cmd": [
+      "php artisan clear-compiled",
+      "php artisan optimize"
+    ],
+    "post-create-project-cmd": [
+      "php -r \"copy('.env.example', '.env');\"",
+      "php artisan key:generate"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
 }

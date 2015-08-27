@@ -10,70 +10,7 @@
         <textarea rows="5" ng-model="project.abstract" required="required"></textarea>
     </div>
 
-    <div class="field">
-        <label>Status</label>
 
-
-
-        <div class="ui floating dropdown upward labeled icon button">
-            <i class="world icon"></i>
-            <span ng-if="!project.status" class="text">Select Status</span>
-            <span ng-if="project.status" class="text">{{project.status.name}}</span>
-
-            <div class="menu">
-                <div class="item" ng-repeat="status in statuses" ng-click="updateStatus(status)">{{status.name}}</div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="field">
-        <label>Faculty</label>
-
-        <div class="ui floating fluid search selection dropdown upward labeled icon button">
-            <i class="world icon"></i>
-            <span ng-if="!project.faculty" class="text">Select Faculty</span>
-            <span ng-if="project.faculty" class="text">{{project.faculty.name_th}}</span>
-
-            <div class="menu">
-                <div class="item" ng-repeat="faculty in faculties" ng-click="updateFaculty(faculty)">{{faculty.name_th}}</div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="field">
-        <label>Created By</label>
-
-        <div class="ui divided list">
-            <div class="item" ng-if="project.created_by != null">
-                <div ng-if="createdBy.checkUser(project.created_by)" class="right floated negative compact ui button" ng-click="createdBy.removeUser(project.created_by)">Remove</div>
-                <img class="ui avatar image" src="/images/square-image.png">
-                <div class="content">
-                    <div class="header">{{project.created_by.firstname}} {{project.created_by.lastname}}</div>
-                    {{project.user.email}}
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="project.created_by == null" class="ui left icon input">
-            <input ng-change="createdBy.searchUser(keyword)" ng-model="keyword" type="text" placeholder="Search users...">
-            <i class="users icon"></i>
-        </div>
-
-        <div class="ui divided list">
-            <div class="item" ng-repeat="user in createdBy.users">
-                <div ng-if="!createdBy.checkUser(user)" class="right floated compact ui button" ng-click="createdBy.addUser(user)">Select</div>
-                <div ng-if="createdBy.checkUser(user)" class="right floated negative compact ui button" ng-click="createdBy.removeUser(user)">Remove</div>
-                <img class="ui avatar image" src="/images/square-image.png">
-                <div class="content">
-                    <div class="header">{{user.firstname}} {{user.lastname}}</div>
-                    {{user.email}}
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <button type="submit" class="ui primary submit button">Save</button>
     <button type="button" ui-sref="home" class="ui submit button">Cancel</button>

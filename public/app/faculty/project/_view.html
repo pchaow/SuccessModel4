@@ -1,0 +1,159 @@
+<div id="contents">
+    <div class="row">
+        <h2><i class="arrow  left icon" ui-sref="home"/> Preview - {{project.name}}</h2>
+    </div>
+
+    <div class="ui grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="one column row" style="">
+                    <div class="column">
+                        <div class="flexslider" style="margin-bottom: 0px;">
+                            <ul class="slides">
+                                <li ng-repeat="youtube in youtubes">
+                                    <div class="videoWrapper">
+                                        <iframe class="youtube" width="640" height="380"
+                                                ng-src="{{getYoutubeEmbedUrl(youtube.vid)}}">
+                                        </iframe>
+                                    </div>
+                                </li>
+                                <li ng-repeat="image in images">
+                                    <img ng-src="{{image.url}}?w=640&h=380&fit=stretch"/>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="six wide column">
+                <div class="row preview">
+                    <h3 class="condensed">บทคัดย่อ</h3>
+
+                    <div class="ui divider condensed"></div>
+                    <div btf-markdown="project.abstract"></div>
+                </div>
+
+                <div class="row preview">
+                    <h3 class="condensed">ดำเนินการโดย</h3>
+
+                    <div class="ui divider condensed"></div>
+                    <img ng-if="!project.faculty.logo" class="ui avatar image" src="/images/square-image.png"/>
+                    <img ng-if="project.faculty.logo" class="ui avatar image"
+                         ng-src="{{project.faculty.logo.url}}?w=35&h=35&fit=crop"/>
+                    {{project.faculty.name_th}}
+                </div>
+
+                <div class="row preview">
+                    <h3 class="condensed">การดำเนินการ</h3>
+
+                    <div class="ui divider condensed"></div>
+
+                    <div class="ui center aligned columns grid">
+                        <div class="ui row">
+                            <button ng-click="showRejectModal(project)" class="ui primary button">ปฏิเสธ</button>
+                            <button ng-click="showAcceptModal(project)" class="ui olive button">ยอมรับ</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="row">
+            <div class="ten wide column">
+                <div class="row preview">
+                    <h3 class="condensed">รายละเอียดโครงการ</h3>
+
+                    <div class="ui divider condensed"></div>
+                    <div ng-bind-html="project.content"></div>
+                </div>
+
+                <div class="row">
+                    <h3 class="condensed">ความคิดเห็น</h3>
+
+                    <div class="ui divider condensed"></div>
+                </div>
+
+
+            </div>
+
+            <div class="six wide column">
+
+                <div class="row preview">
+                    <h3 class="condensed">ดาวน์โหลด</h3>
+
+                    <div class="ui divider condensed"></div>
+                    <div class="ui center aligned columns grid">
+                        <div class="ui row">
+                            <a href="/downloads/{{project.current_file.origin_name}}{{project.current_file.url}}"
+                               class="ui positive button">เอกสารฉบับเต็ม</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row preview">
+
+                    <h3 class="condensed">นักวิจัย</h3>
+
+                    <div class="ui divider condensed"></div>
+                    <div class="ui two columns grid">
+                        <div class="ui column" ng-repeat="member in members">
+                            <img ng-if="!member.logo" class="ui avatar image" src="/images/square-image.png"/>
+                            <img ng-if="member.logo" class="ui avatar image"
+                                 ng-src="{{member.logo.url}}?w=35&h=35&fit=crop"/>
+                            {{member.title}}{{member.firstname}} {{member.lastname}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal ng-model="reject_modal">
+    <i ng-click="closeRejectModal()" class="close icon"></i>
+
+    <div class="header">
+        Comment Project
+    </div>
+    <form class="ui reply form">
+        <div class="field">
+            <textarea placeholder="คำแนะนำ.........."></textarea>
+        </div>
+    </form>
+    <div class="actions">
+        <div class="ui black button" ng-click="ajaxReject(project,false)">
+            No
+        </div>
+        <div class="ui positive right labeled icon button" ng-click="ajaxReject(project,true)">
+            Yes
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</modal>
+
+<modal ng-model="accept_modal">
+    <i ng-click="closeAcceptModal()" class="close icon"></i>
+
+    <div class="header">
+        Comment Project
+    </div>
+    <div class="content">
+        <textarea rows="5" required="required"></textarea>
+    </div>
+    <div class="actions">
+        <div class="ui black button" ng-click="ajaxAccept(project,false)">
+            No
+        </div>
+        <div class="ui positive right labeled icon button" ng-click="ajaxAccept(project,true)">
+            Yes
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</modal>
+
+

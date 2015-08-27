@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Faculty;
 
 
+
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -20,8 +21,10 @@ class DatabaseSeeder extends Seeder {
 
         $this->call("RoleSeeder");
         $this->call("AdminSeeder");
+        $this->call("AreaSeeder");
         $this->call("FacultySeeder");
         $this->call("ProjectStatusSeeder");
+
 
 
     }

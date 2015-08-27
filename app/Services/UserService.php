@@ -1,11 +1,14 @@
 <?php
 namespace App\Services;
+use App\Models\Faculty;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Logo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
+use App\Soaps\LoginSoap;
+use App\Soaps\UserInfoSoap;
 
 /**
  * Created by PhpStorm.
@@ -16,7 +19,7 @@ use Rhumsaa\Uuid\Uuid;
 
 class UserService extends Service{
 
-    var $withArr = ['roles','logo'];
+    var $withArr = ['roles','logo','faculty'];
 
     public function getAll(){
         return User::with($this->withArr)->get();
@@ -54,6 +57,7 @@ class UserService extends Service{
         $user = $this->setPassword($user,$input);
         $user->save();
         $this->linkToRole($user,$input);
+        $this->linkToFaculty($user,$input);
         return $user;
     }
 
@@ -69,6 +73,7 @@ class UserService extends Service{
             $user = $this->setPassword($user,$input);
             $user->save();
             $this->linkToRole($user,$input);
+            $this->linkToFaculty($user,$input);
             return $user;
         }else {
             return $this->store($input);
@@ -107,6 +112,78 @@ class UserService extends Service{
             ->take(10)
             ->get();
         return $users;
+    }
+
+    private function linkToFaculty(User $user, array $input)
+    {
+        if (isset($input['faculty'])) {
+            $id = $input['faculty']['id'];
+            if($oldFac = $user->faculty()->first()){
+                /* @var Faculty $oldFac */
+                $oldFac->users()->detach($user->id);
+            }
+            $faculty = Faculty::find($id);
+            $faculty->users()->attach($user->id);
+        }else {
+            if($oldFac = $user->faculty()->first()){
+                /* @var Faculty $oldFac */
+                $oldFac->users()->detach($user->id);
+            }
+        }
+
+        return $user;
+    }
+
+    public function getUserInfoFromSoap($username,$password){
+        $data = [
+            'Login' => [
+                'username' => base64_encode($username),
+                'password' => base64_encode($password),
+                'ProductName' => 'decaffair_student',
+            ]
+        ];
+
+        $loginSoap = new LoginSoap();
+        $result = $loginSoap->call('Login', $data);
+        $sid = $result->LoginResult;
+
+        $data2 = [
+            'GetStaffInfo' => [
+                'sessionID' => $sid
+            ]
+        ];
+
+
+        $userInfo = new UserInfoSoap();
+        $infoResult = $userInfo->call('GetStaffInfo', $data2)->GetStaffInfoResult;
+
+        return $infoResult;
+    }
+
+    public function createUserFromSoap($username,$password){
+
+        $infoResult = $this->getUserInfoFromSoap($username,$password);
+
+        $user = new User();
+        $user->username = $username;
+        $user->title = $infoResult->Title;
+        $user->firstname = $infoResult->FirstName_TH;
+        $user->lastname = $infoResult->LastName_TH;
+        $user->email = $username."@up.ac.th";
+        $user->save();
+
+        $faculty = Faculty::where('name_th','=',$infoResult->Faculty)->first();
+        if($faculty){
+            $user->faculty()->save($faculty);
+        }
+
+        $role = Role::where('key','=','researcher')->first();
+        if($role){
+            $user->roles()->sync([$role->id]);
+        }
+        $user->roles;
+        $user->faculty;
+        return $user;
     }
 
 
